@@ -1,20 +1,16 @@
 <?php
-
-$serverName = "localhost";
+$serverName = "192.168.254.206";
 $connectionOptions = [
-    "Database" => "barcodes",
-    "UID" => "adminweb",
-    "PWD" => "123456"
+    "Database" => "PtoVta",
+    "Uid" => "inventarios",
+    "PWD" => "I177n12V18e16N01"
 ];
 
-// Conectar al servidor
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn === false) {
     die(print_r(sqlsrv_errors(), true));
 }
-
-
 
 
 ?>

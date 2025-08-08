@@ -10,6 +10,8 @@ function sqlsrv_close($conn) {}
 function sqlsrv_errors($errorsOrWarnings = null) {}
 function sqlsrv_prepare($conn, $query, $params = null, $options = null) {}
 function sqlsrv_execute($stmt) {}
+function sqlsrv_rows_affected($stmt) {}
+function sqlsrv_has_rows($stmt){}
 
 if (!defined('SQLSRV_FETCH_ASSOC')) {
     define('SQLSRV_FETCH_ASSOC', 2);
@@ -23,5 +25,9 @@ if (!defined('SQLSRV_FETCH_BOTH')) {
 if (!defined('SQLSRV_PHPTYPE_STRING')) {
     define('SQLSRV_PHPTYPE_STRING', -8);
 }
+if (!defined('SQLSRV_AUTH_WINDOWS')) {
+    define('SQLSRV_AUTH_WINDOWS', -8);
+}
+
 
 ?>

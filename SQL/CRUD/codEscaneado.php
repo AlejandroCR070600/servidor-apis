@@ -1,15 +1,16 @@
 <?php
+header('Content-Type: application/json');
+
 require "../conection.php";
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
     $value=json_decode(file_get_contents(('php://input')));
 
+    buscar($value->barcode);
     
-    
-    if($value->request==='POSTDATES'){
-    $buscador= buscar($value->barcode);
-    }
 
+    
+/*
     if($buscador===true){
       $datosE=['MENSAJE'=>'SI EXISTE EL PRODUCTO']; 
         echo json_encode($datosE);
@@ -17,7 +18,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }else{
         crearUsuario($value->barcode);
 
-    }
+    }*/
     
     //echo json_encode($value);
 //    crearUsuario($value->barcode);
@@ -29,7 +30,7 @@ function buscar($barcode){
         echo json_encode($datosE);
     return;
     }
-    $sql="SELECT * from barcode where barcode=?";
+    $sql="select codrelacionado as CodigodeBarras, codigo as CodigoInterno,  descripcion, (select Existencia from productofarma where CatProductos.Codigo=productofarma.Codigo) as Existencia  from catproductos inner join codigosrel on codigo = CodigoInt where  CodRelacionado	= ?";
     $params=[$barcode];
     $stmt=sqlsrv_query($conn,$sql,$params);
     if($stmt===false){
@@ -38,9 +39,12 @@ function buscar($barcode){
     return;
     }   
     if($row=sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-        return true;
+        echo json_encode($row);
+        return;
 } else {
-    return false;
+        $datosE=['MENSAJE'=>'ERROR EN LA CONSULTA']; 
+    echo json_encode($datosE);
+    return;
 }
 
 }
